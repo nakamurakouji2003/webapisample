@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.ac.hal.dao.FileStorageMapper">
+
+  <resultMap id="FileStorageMap" type="jp.ac.hal.model.FileStorage" >
+    <id column="uploadId" property="uploadId" jdbcType="INTEGER" />
+    <result column="registPerson" property="registPerson" jdbcType="INTEGER" />
+    <result column="registDate" property="registDate" jdbcType="VARCHAR" />
+    <result column="registLocation" property="registLocation" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="storageStartDate" property="storageStartDate" jdbcType="VARCHAR" />
+    <result column="storageEndDate" property="storageEndDate" jdbcType="VARCHAR" />
+    <result column="registGroupName" property="registGroupName" jdbcType="VARCHAR" />
+    <result column="registGroupPassword" property="registGroupPassword" jdbcType="VARCHAR" />
+    <result column="jsessionId" property="jsessionId" jdbcType="VARCHAR" />
+    <result column="invalidFlag" property="invalidFlag" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectByRegistPerson" resultMap="FileStorageMap">
+    SELECT uploadId, registPerson, registDate, registLocation, version, storageStartDate, storageEndDate, registGroupName, registGroupPassword, jsessionId, invalidFlag FROM filestorage WHERE registPerson = #{registPerson} AND invalidFlag = #{invalidFlag}
+  </select>
+
+  <select id="selectByPK" resultMap="FileStorageMap" parameterType="Long">
+    SELECT uploadId, registPerson, registDate, registLocation, version, storageStartDate, storageEndDate, registGroupName, registGroupPassword, jsessionId, invalidFlag FROM filestorage WHERE uploadId = #{uploadId}
+  </select>
+
+  <insert id="insertFileStorage" parameterType="jp.ac.hal.model.FileStorage">
+    INSERT INTO filestorage (uploadId, registPerson, registDate, registLocation, version, storageStartDate, storageEndDate, registGroupName, registGroupPassword, jsessionId, invalidFlag)
+    VALUES (
+    #{uploadId,jdbcType=BIGINT},
+    #{registPerson,jdbcType=BIGINT},
+    #{registDate,jdbcType=VARCHAR},
+    #{registLocation,jdbcType=VARCHAR},
+    #{version,jdbcType=VARCHAR},
+    #{storageStartDate,jdbcType=VARCHAR},
+    #{storageEndDate,jdbcType=VARCHAR},
+    #{registGroupName,jdbcType=VARCHAR},
+    #{registGroupPassword,jdbcType=VARCHAR},
+    #{jsessionId,jdbcType=VARCHAR},
+    #{invalidFlag,jdbcType=VARCHAR}
+    )
+  </insert>
+
+</mapper>
